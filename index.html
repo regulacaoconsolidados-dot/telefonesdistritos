@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contatos Telefônicos - Diretoria de Regulação do Acesso</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            color: #2d3748;
+        }
+
+        /* ========== CABEÇALHO ========== */
+        .header {
+            background: linear-gradient(135deg, #6b2d5c 0%, #8b3a70 50%, #9c4781 100%);
+            color: white;
+            padding: 2.5rem 1.5rem;
+            box-shadow: 0 4px 12px rgba(107, 45, 92, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ec4899 0%, #a855f7 50%, #8b5cf6 100%);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .header-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.5px;
+        }
+
+        .header-title i {
+            margin-right: 0.75rem;
+            font-size: 1.8rem;
+        }
+
+        .header-subtitle {
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: #f0e5eb;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-credits {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.5rem;
+        }
+
+        /* ========== CONTAINER PRINCIPAL ========== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ========== ÁREA DE BUSCA ========== */
+        .search-section {
+            padding: 2.5rem 0 1.5rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 3.5rem 1rem 3.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #8b3a70;
+            box-shadow: 0 4px 16px rgba(139, 58, 112, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 1.125rem;
+        }
+
+        .clear-search {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #e2e8f0;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            color: #64748b;
+        }
+
+        .clear-search:hover {
+            background: #cbd5e1;
+            color: #475569;
+        }
+
+        .clear-search.show {
+            display: flex;
+        }
+
+        /* ========== CONTADOR DE RESULTADOS ========== */
+        .results-counter {
+            text-align: center;
+            padding: 1.5rem 0;
+            font-size: 0.9375rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .results-counter i {
+            margin-right: 0.5rem;
+            color: #8b3a70;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #64748b;
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            color: #cbd5e1;
+            margin-bottom: 1rem;
+        }
+
+        .no-results h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #475569;
+        }
+
+        /* ========== SEÇÕES DE CATEGORIA ========== */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+            border-left: 4px solid #8b3a70;
+        }
+
+        .section-title i {
+            margin-right: 0.5rem;
+            color: #8b3a70;
+        }
+
+        /* ========== GRID DE CARDS ========== */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            padding-bottom: 2rem;
+        }
+
+        /* ========== CARDS ========== */
+        .contact-card {
+            background: linear-gradient(135deg, #8b3a70 0%, #7a3363 100%);
+            border-radius: 12px;
+            padding: 1.75rem;
+            box-shadow: 0 4px 6px rgba(107, 45, 92, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ec4899 0%, #a855f7 50%, #8b5cf6 100%);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(107, 45, 92, 0.25);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+            color: white;
+            margin-right: 0.75rem;
+            opacity: 0.95;
+            min-width: 2rem;
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1.3;
+        }
+
+        .card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            color: #f0e5eb;
+            font-size: 0.9375rem;
+        }
+
+        .info-item i {
+            width: 20px;
+            margin-right: 0.75rem;
+            color: #dbeafe;
+            font-size: 0.9rem;
+        }
+
+        .info-item span {
+            font-weight: 500;
+        }
+
+        .info-item .phone-number {
+            font-weight: 500;
+            color: white;
+        }
+
+        .info-item .phone-number span {
+            background: rgba(255,255,255,0.15);
+            padding: 0.1rem 0.6rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 2px 4px 2px 0;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .info-item .email-text {
+            font-size: 0.875rem;
+            color: #f3e5f5;
+            word-break: break-all;
+        }
+
+        .info-item .email-text a {
+            color: #f3e5f5;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .info-item .email-text a:hover {
+            text-decoration: underline;
+            color: white;
+        }
+
+        .note {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.7);
+            font-style: italic;
+            margin-top: 0.25rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .note i {
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* ========== RESPONSIVIDADE ========== */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 1.5rem;
+            }
+
+            .header-title i {
+                font-size: 1.4rem;
+            }
+
+            .header-subtitle {
+                font-size: 1rem;
+            }
+
+            .header-credits {
+                font-size: 0.7rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
+
+            .search-input {
+                padding: 0.875rem 3rem 0.875rem 3rem;
+                font-size: 0.9375rem;
+            }
+
+            .section-title {
+                font-size: 1.25rem;
+            }
+
+            .card-title {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 2rem 1rem;
+            }
+
+            .header-title {
+                font-size: 1.25rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .contact-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- CABEÇALHO -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="header-title">
+                <i class="fas fa-phone-alt"></i>
+                Contatos Telefônicos - Diretoria de Regulação do Acesso
+            </h1>
+            <p class="header-subtitle">Diretoria de Regulação do Acesso</p>
+            <p class="header-credits">Página Criada por Ana P. A. Silva Matr:201704 / Assistente Adm. Diretoria de Regulação do Acesso</p>
+        </div>
+    </header>
+
+    <!-- CONTAINER PRINCIPAL -->
+    <div class="container">
+        <!-- ÁREA DE BUSCA -->
+        <section class="search-section">
+            <div class="search-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="Pesquisar por setor, telefone ou responsável..."
+                    autocomplete="off"
+                >
+                <button class="clear-search" id="clearSearch">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- CONTADOR DE RESULTADOS -->
+        <div class="results-counter" id="resultsCounter">
+            <i class="fas fa-info-circle"></i>
+            Mostrando <strong id="visibleCount">0</strong> de <strong id="totalCount">0</strong> setores
+        </div>
+
+        <!-- MENSAGEM SEM RESULTADOS -->
+        <div class="no-results" id="noResults" style="display: none;">
+            <i class="fas fa-search"></i>
+            <h3>Nenhum resultado encontrado</h3>
+            <p>Tente ajustar os termos da sua busca</p>
+        </div>
+
+        <!-- DEPARTAMENTOS ADMINISTRATIVOS -->
+        <section class="section">
+            <h2 class="section-title">
+                <i class="fas fa-building"></i>
+                Departamentos Administrativos
+            </h2>
+            <div class="cards-grid" id="adminGrid">
+                <div class="contact-card" data-search="guichê">
+                    <div class="card-header">
+                        <i class="fas fa-desktop card-icon"></i>
+                        <h3 class="card-title">Guichê</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6770</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="assessoria rh recursos humanos patricia miranda">
+                    <div class="card-header">
+                        <i class="fas fa-users card-icon"></i>
+                        <h3 class="card-title">Assessoria RH</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6776</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:patricia.miranda@contagem.mg.gov.br">patricia.miranda@contagem.mg.gov.br</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="diretoria coordenação administrativa fernanda almeida">
+                    <div class="card-header">
+                        <i class="fas fa-user-tie card-icon"></i>
+                        <h3 class="card-title">Diretoria Coordenação Adm.</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6751</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:fernanda.almeida@contagem.mg.gov.br">fernanda.almeida@contagem.mg.gov.br</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="diretoria administrativa">
+                    <div class="card-header">
+                        <i class="fas fa-briefcase card-icon"></i>
+                        <h3 class="card-title">Diretoria Adm</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6776</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="recepção">
+                    <div class="card-header">
+                        <i class="fas fa-concierge-bell card-icon"></i>
+                        <h3 class="card-title">Recepção</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6750</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="diretoria">
+                    <div class="card-header">
+                        <i class="fas fa-crown card-icon"></i>
+                        <h3 class="card-title">Diretoria</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6783</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="revisão administrativa técnica">
+                    <div class="card-header">
+                        <i class="fas fa-clipboard-check card-icon"></i>
+                        <h3 class="card-title">Revisão Adm e Técnica</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6781</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="faturamento aloísio aloisio">
+                    <div class="card-header">
+                        <i class="fas fa-file-invoice-dollar card-icon"></i>
+                        <h3 class="card-title">Faturamento - Aloísio</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6778</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="cartão sus">
+                    <div class="card-header">
+                        <i class="fas fa-id-card card-icon"></i>
+                        <h3 class="card-title">Cartão SUS</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6780</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="supervisão ambulatorial">
+                    <div class="card-header">
+                        <i class="fas fa-clipboard-list card-icon"></i>
+                        <h3 class="card-title">Supervisão Ambulatorial</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6785</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="auditoria">
+                    <div class="card-header">
+                        <i class="fas fa-search-dollar card-icon"></i>
+                        <h3 class="card-title">Auditoria</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6782</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="almoxerifado marcos">
+                    <div class="card-header">
+                        <i class="fas fa-warehouse card-icon"></i>
+                        <h3 class="card-title">Almoxerifado - Sr Marcos</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3138-6767</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:marcoreis.48@hotmail.com">marcoreis.48@hotmail.com</a></span>
+                        </div>
+                        <div class="note">
+                            <i class="fas fa-info-circle"></i> Telefone Uso Interno
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DEPARTAMENTOS MÉDICOS E ESPECIALIZADOS -->
+        <section class="section">
+            <h2 class="section-title">
+                <i class="fas fa-user-md"></i>
+                Departamentos Médicos e Especializados
+            </h2>
+            <div class="cards-grid" id="medicalGrid">
+                <div class="contact-card" data-search="oncologia neide lizardo marcilene rodrigues">
+                    <div class="card-header">
+                        <i class="fas fa-ribbon card-icon"></i>
+                        <h3 class="card-title">Oncologia</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3199257-0767 / 3198-6757</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:neide.lizardo@contagem.mg.gov.br">neide.lizardo@contagem.mg.gov.br</a></span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:marcilene.rodrigues@contagem.mg.gov.br">marcilene.rodrigues@contagem.mg.gov.br</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="alto custo ceaps">
+                    <div class="card-header">
+                        <i class="fas fa-capsules card-icon"></i>
+                        <h3 class="card-title">Alto Custo</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6752 / 3198-6753</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:ceapsdr@gmail.com">ceapsdr@gmail.com</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="cirurgia eletiva">
+                    <div class="card-header">
+                        <i class="fas fa-user-nurse card-icon"></i>
+                        <h3 class="card-title">Cirurgia Eletiva</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6754 / 3198-6755</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:cecontagem@gmail.com">cecontagem@gmail.com</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="média complexidade colonoscopia">
+                    <div class="card-header">
+                        <i class="fas fa-hospital card-icon"></i>
+                        <h3 class="card-title">Média Complexidade</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6759 / 3198-6760 / 3198-6777</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:colonoscopia.contagem@gmail.com">colonoscopia.contagem@gmail.com</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="colonoscopia livia lívia">
+                    <div class="card-header">
+                        <i class="fas fa-stethoscope card-icon"></i>
+                        <h3 class="card-title">Colonoscopia - Livia</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6788</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:colonoscopia.contagem@gmail.com">colonoscopia.contagem@gmail.com</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="oftalmologia">
+                    <div class="card-header">
+                        <i class="fas fa-eye card-icon"></i>
+                        <h3 class="card-title">Oftalmologia</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6761 / 3198-6762</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:oftalmologia.contagem@gmail.com">oftalmologia.contagem@gmail.com</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="reabilitação junta reguladora">
+                    <div class="card-header">
+                        <i class="fas fa-wheelchair card-icon"></i>
+                        <h3 class="card-title">Reabilitação</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6763</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:juntareguladora@contagem.mg.gov.br">juntareguladora@contagem.mg.gov.br</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="trs nefrologia carlos">
+                    <div class="card-header">
+                        <i class="fas fa-heartbeat card-icon"></i>
+                        <h3 class="card-title">TRS (Nefrologia) - Carlos</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6765</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:contagem.nefrologia@gmail.com">contagem.nefrologia@gmail.com</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="químico quimico">
+                    <div class="card-header">
+                        <i class="fas fa-flask card-icon"></i>
+                        <h3 class="card-title">Químico</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6785</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVIÇOS DE APOIO -->
+        <section class="section">
+            <h2 class="section-title">
+                <i class="fas fa-cogs"></i>
+                Serviços de Apoio
+            </h2>
+            <div class="cards-grid" id="supportGrid">
+                <div class="contact-card" data-search="malote">
+                    <div class="card-header">
+                        <i class="fas fa-mail-bulk card-icon"></i>
+                        <h3 class="card-title">Malote</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6775</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:maloteceaps@gmail.com">maloteceaps@gmail.com</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="serviço social tfd">
+                    <div class="card-header">
+                        <i class="fas fa-hands-helping card-icon"></i>
+                        <h3 class="card-title">Serviço Social / TFD</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6764</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="tfd tratamento fora domicílio domicilio">
+                    <div class="card-header">
+                        <i class="fas fa-ambulance card-icon"></i>
+                        <h3 class="card-title">TFD</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6764</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:tfdfamuc@gmail.com">tfdfamuc@gmail.com</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CMC - CENTRAL DE MARCAÇÃO DE CONSULTAS -->
+        <section class="section">
+            <h2 class="section-title">
+                <i class="fas fa-calendar-alt"></i>
+                CMC - Central de Marcação de Consultas
+            </h2>
+            <div class="cards-grid" id="cmcGrid">
+                <div class="contact-card" data-search="referência setor enfermeira giovanna">
+                    <div class="card-header">
+                        <i class="fas fa-user-nurse card-icon"></i>
+                        <h3 class="card-title">Referência do Setor - Enfermeira Giovanna</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6774</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="páginas painéis consolidados ana">
+                    <div class="card-header">
+                        <i class="fas fa-chart-line card-icon"></i>
+                        <h3 class="card-title">Páginas, Painéis, Consolidados Adm. Ana</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6774</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:compartilhacmc@gmail.com">compartilhacmc@gmail.com</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="belo horizonte erika eliane juliana">
+                    <div class="card-header">
+                        <i class="fas fa-map-marker-alt card-icon"></i>
+                        <h3 class="card-title">Belo Horizonte - Enf. Erika, Adm. Eliane, Adm. Juliana</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6774</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:cmcbelohorizonte@gmail.com">cmcbelohorizonte@gmail.com</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="distrito eldorado cristina">
+                    <div class="card-header">
+                        <i class="fas fa-map-marked-alt card-icon"></i>
+                        <h3 class="card-title">Distrito Eldorado - Referência Adm. Cristina</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6768</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:cmceldorado@gmail.com">cmceldorado@gmail.com</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="distrito petrolândia petrolandia erika">
+                    <div class="card-header">
+                        <i class="fas fa-map-marked-alt card-icon"></i>
+                        <h3 class="card-title">Distrito Petrolândia - Referência Adm. Erika</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6779</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:cmcpetrolandia@gmail.com">cmcpetrolandia@gmail.com</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="distrito nacional daniela">
+                    <div class="card-header">
+                        <i class="fas fa-map-marked-alt card-icon"></i>
+                        <h3 class="card-title">Distrito Nacional - Referência Adm. Daniela</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6766</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:cmcnacionalcontagem@gmail.com">cmcnacionalcontagem@gmail.com</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="distrito industrial magali">
+                    <div class="card-header">
+                        <i class="fas fa-map-marked-alt card-icon"></i>
+                        <h3 class="card-title">Distrito Industrial - Referência Adm. Magali</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6773</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:cmcindustrialcontagem@gmail.com">cmcindustrialcontagem@gmail.com</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="distrito riacho rosangela rosângela">
+                    <div class="card-header">
+                        <i class="fas fa-map-marked-alt card-icon"></i>
+                        <h3 class="card-title">Distrito Riacho - Referência Adm. Rosangêla</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6769</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:marcacaodistritoriacho@gmail.com">marcacaodistritoriacho@gmail.com</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="distrito vargem flores carolina">
+                    <div class="card-header">
+                        <i class="fas fa-map-marked-alt card-icon"></i>
+                        <h3 class="card-title">Distrito Vargem das Flores - Referência Adm. Carolina</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6758</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:cmcvargemdasflores@gmail.com">cmcvargemdasflores@gmail.com</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="distrito sede ariana">
+                    <div class="card-header">
+                        <i class="fas fa-map-marked-alt card-icon"></i>
+                        <h3 class="card-title">Distrito Sede - Referência Adm. Ariana</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6756</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:sedemarcacao@gmail.com">sedemarcacao@gmail.com</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="distrito ressaca graziele">
+                    <div class="card-header">
+                        <i class="fas fa-map-marked-alt card-icon"></i>
+                        <h3 class="card-title">Distrito Ressaca - Referência Adm. Graziele</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6772</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="email-text"><a href="mailto:cmcressaca@gmail.com">cmcressaca@gmail.com</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-search="sae itr natalia natália">
+                    <div class="card-header">
+                        <i class="fas fa-hospital-symbol card-icon"></i>
+                        <h3 class="card-title">SAE / ITR - Adm. Natalia</h3>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">3198-6769</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- JAVASCRIPT PARA BUSCA INTELIGENTE -->
+    <script>
+        // Função para normalizar texto (remover acentos)
+        function normalizeText(text) {
+            return text
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '');
+        }
+
+        // Elementos
+        const searchInput = document.getElementById('searchInput');
+        const clearSearch = document.getElementById('clearSearch');
+        const resultsCounter = document.getElementById('resultsCounter');
+        const visibleCount = document.getElementById('visibleCount');
+        const totalCount = document.getElementById('totalCount');
+        const noResults = document.getElementById('noResults');
+        const contactCards = document.querySelectorAll('.contact-card');
+
+        // Total de cards
+        totalCount.textContent = contactCards.length;
+
+        // Função de busca
+        function performSearch() {
+            const searchTerm = normalizeText(searchInput.value.trim());
+            let visibleCards = 0;
+
+            // Mostrar/ocultar botão de limpar
+            if (searchInput.value.trim() !== '') {
+                clearSearch.classList.add('show');
+            } else {
+                clearSearch.classList.remove('show');
+            }
+
+            // Filtrar cards
+            contactCards.forEach(card => {
+                const searchData = normalizeText(card.getAttribute('data-search'));
+                const cardText = normalizeText(card.textContent);
+                
+                if (searchData.includes(searchTerm) || cardText.includes(searchTerm)) {
+                    card.style.display = '';
+                    visibleCards++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Atualizar contador
+            visibleCount.textContent = visibleCards;
+
+            // Mostrar mensagem se não houver resultados
+            if (visibleCards === 0) {
+                noResults.style.display = 'block';
+                resultsCounter.style.display = 'none';
+            } else {
+                noResults.style.display = 'none';
+                resultsCounter.style.display = 'block';
+            }
+        }
+
+        // Event listeners
+        searchInput.addEventListener('input', performSearch);
+
+        clearSearch.addEventListener('click', () => {
+            searchInput.value = '';
+            clearSearch.classList.remove('show');
+            performSearch();
+            searchInput.focus();
+        });
+
+        // Limpar busca com ESC
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                searchInput.value = '';
+                clearSearch.classList.remove('show');
+                performSearch();
+            }
+        });
+
+        // Inicializar contador
+        performSearch();
+    </script>
+</body>
+</html>
